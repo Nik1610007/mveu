@@ -1,9 +1,16 @@
 .Main {
-    width: 100%;
-    min-height: calc(100vh - 50px - 50px);
-    background-color: rgb(236, 240, 243);
+    padding: 20px;
+  }
+  
+  .Main h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .Product-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 30px;
-    padding: 30px;
-}
+    gap: 20px;
+    padding: 20px;
+  }

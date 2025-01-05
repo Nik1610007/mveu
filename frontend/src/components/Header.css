@@ -3,18 +3,27 @@
     height: 50px;
     background-color: rgb(76, 127, 172);
     display: flex;
-    justify-content: flex-end;
-}
-.Header ul {
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .Header ul {
     display: flex;
-}
-.Header li {
-    width: 140px;
-    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
     list-style: none;
+  }
+  
+  .Header li {
+    flex: 1;
+    text-align: center;
     line-height: 50px;
     cursor: pointer;
-}
-.Header li:hover {
+    color: white;
+    font-weight: bold;
+  }
+  
+  .Header li:hover {
     background-color: rgb(87, 176, 211);
-}
+  }

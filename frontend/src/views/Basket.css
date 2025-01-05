@@ -1,5 +1,74 @@
 .Basket {
-    width: 100%;
-    height: calc(100vh - 50px - 50px);
-    background-color: white;
-}
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .Basket h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .Basket ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .Basket li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .Basket li:last-child {
+    border-bottom: none;
+  }
+  
+  .Basket-image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-right: 20px;
+    border-radius: 8px;
+  }
+  
+  .Basket-info {
+    flex: 1;
+  }
+  
+  .Basket-info h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .Basket-info p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .Basket button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .Basket button:hover {
+    background-color: #cc0000;
+  }
+  
+  .Basket p {
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
