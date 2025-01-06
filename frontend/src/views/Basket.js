@@ -26,13 +26,34 @@ const Basket = () => {
     setModalBox('order');
   };
 
-  const submitOrder = () => {
+  const validateCard = () => {
     if (!cardNumber || !cardExpiry || !cardCVC) {
       alert('Заполните все поля!');
-      return;
+      return false;
     }
 
-    alert('Заказ успешно оформлен!');
+    if (!/^\d{16}$/.test(cardNumber)) {
+      alert('Номер карты должен состоять из 16 цифр.');
+      return false;
+    }
+
+    if (!/^\d{2}\/\d{2}$/.test(cardExpiry)) {
+      alert('Срок действия карты должен быть в формате MM/YY.');
+      return false;
+    }
+
+    if (!/^\d{3}$/.test(cardCVC)) {
+      alert('CVC/CVV должен состоять из 3 цифр.');
+      return false;
+    }
+
+    return true;
+  };
+
+  const submitOrder = () => {
+    if (!validateCard()) return;
+
+    alert('Оплата прошла успешно! Заказ оформлен.');
     setBasket([]);
     localStorage.removeItem('basket');
     setModalBox('none');
@@ -68,7 +89,7 @@ const Basket = () => {
           <form>
             <input
               type="text"
-              placeholder="Номер карты"
+              placeholder="Номер карты (16 цифр)"
               value={cardNumber}
               onChange={(e) => setCardNumber(e.target.value)}
             />
@@ -80,11 +101,11 @@ const Basket = () => {
             />
             <input
               type="text"
-              placeholder="CVC/CVV"
+              placeholder="CVC/CVV (3 цифры)"
               value={cardCVC}
               onChange={(e) => setCardCVC(e.target.value)}
             />
-            <button type="button" onClick={submitOrder}>Подтвердить</button>
+            <button type="button" onClick={submitOrder}>Оплатить</button>
           </form>
         </ModalBox>
       )}

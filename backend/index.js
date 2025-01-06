@@ -66,8 +66,15 @@ app.put('/profile', async (req, res) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
     const decoded = jwt.verify(token, secret);
-    const { login, email } = req.body;
-    await User.findByIdAndUpdate(decoded.id, { login, email });
+    const { login, email, password } = req.body;
+
+    const updateData = { login, email };
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      updateData.password = hashedPassword;
+    }
+
+    await User.findByIdAndUpdate(decoded.id, updateData);
     res.json({ message: 'Данные обновлены' });
   } catch (e) {
     res.status(401).json({ message: 'Не авторизован' });

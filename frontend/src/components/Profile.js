@@ -5,6 +5,9 @@ import './Profile.css';
 const Profile = ({ setModalBox }) => {
   const [user, setUser] = useState({ login: '', email: '' });
   const [editMode, setEditMode] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -21,12 +24,26 @@ const Profile = ({ setModalBox }) => {
   }, [setModalBox]);
 
   const handleSave = () => {
+    if (newPassword !== confirmPassword) {
+      setError('Пароли не совпадают');
+      return;
+    }
+
     const token = localStorage.getItem('token');
-    axios.put('http://localhost:9001/profile', user, {
+    const updatedData = { login: user.login, email: user.email };
+
+    if (newPassword) {
+      updatedData.password = newPassword;
+    }
+
+    axios.put('http://localhost:9001/profile', updatedData, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(response => {
       setEditMode(false);
+      setNewPassword('');
+      setConfirmPassword('');
+      setError('');
       alert('Данные успешно обновлены!');
     })
     .catch(error => console.log(error));
@@ -47,11 +64,25 @@ const Profile = ({ setModalBox }) => {
             onChange={(e) => setUser({ ...user, email: e.target.value })}
             placeholder="Email"
           />
+          <input
+            type="password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            placeholder="Новый пароль"
+          />
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Повторите пароль"
+          />
+          {error && <p style={{ color: 'red' }}>{error}</p>}
           <button onClick={handleSave}>Сохранить</button>
         </div>
       ) : (
         <div className="Profile-info">
           <p><strong>Логин:</strong> {user.login}</p>
+          <p><strong>Пароль:</strong></p> {}
           <p><strong>Email:</strong> {user.email}</p>
           <button onClick={() => setEditMode(true)}>Редактировать</button>
         </div>
